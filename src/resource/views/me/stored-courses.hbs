@@ -1,0 +1,91 @@
+<div class="container">
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Tên khóa học</th>
+        <th scope="col">Trình độ</th>
+        <th scope="col">Thời gian tạo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each courses}}
+        <tr>
+          <th scope="row">{{sum @index 1}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.level}}</td>
+          <td>{{this.CreateAt}}</td>
+          <td>
+            <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
+            <a
+              href=""
+              class="btn btn-link"
+              data-id="{{this._id}}"
+              data-toggle="modal"
+              data-target="#delete-course-modal"
+            >Xóa</a>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{! Confirm Delete course }}
+<!-- Modal -->
+<div class="modal fade" id="delete-course-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xóa khóa học</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Dữ liệu sẽ bị xóa vĩnh viễn không thể khôi phục.Bạn có chắn chắn muốn xóa
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-danger btn-delete-course">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form method="post" action="" name="delete-course-form">
+
+</form>
+{{!-- <form action=""></form> --}}
+<script>
+  
+ /* document.addEventListener("DOMContentLoaded", function(){ 
+    var deleteCourseForm = document.forms['delete-course-form'];
+    var btnDeleteCourse = document.querySelector('.btn-delete-course');
+    var courseID;
+    $('#delete-course-modal').on('show.bs.modal', function(e){
+      var button = $(e.relatedTarget)
+      courseID = button.data('id')
+    })
+    btnDeleteCourse.addEventListener("click", function(e){
+    //  alert("thành công")
+      deleteCourseForm.action= '/courses/' + courseID + '?_method=DELETE';
+      deleteCourseForm.submit()
+    })
+  })*/
+
+  document.addEventListener("DOMContentLoaded", function(){
+    var deleteCourseForm = document.forms['delete-course-form'];
+    var btnDeleteCourse = document.querySelector('.btn-delete-course');
+    var courseID
+    $('#delete-course-modal').on('show.bs.modal', function(e){
+      var button = $(e.relatedTarget)
+      courseID = button.data('id')
+    })
+    btnDeleteCourse.addEventListener('click', function(){
+      alert(courseID)
+      deleteCourseForm.action= '/courses/' + courseID+'?_method=DELETE'
+      deleteCourseForm.submit()
+    })
+  })
+
+</script>
